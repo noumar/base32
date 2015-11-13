@@ -1,5 +1,8 @@
 # base32
 
+[![Build Status](https://travis-ci.org/noumar/base32.svg?branch=master)](https://travis-ci.org/noumar/base32)
+[![Docs](http://docrystal.org/badge.svg?style=round)](http://docrystal.org/github.com/noumar/base32)
+
 Provides encoding and decoding of base32 and base32hex as defined in RFC 4648.
 
 ## Installation
@@ -16,9 +19,13 @@ dependencies:
 
 ```crystal
 require "base32"
-```
 
-TODO: Write usage instructions here
+Base32.encode("Hello World!") # => "JBSWY3DPEBLW64TMMQQQ===="
+Base32.encode("Hello World!", false) # => "JBSWY3DPEBLW64TMMQQQ"
+
+Base32.decode_string("JBSWY3DPEBLW64TMMQQQ====") # => "Hello World!"
+Base32.decode_string("JBSWY3DPEBLW64TMMQQQ") # => "Hello World!"
+```
 
 ## Development
 
