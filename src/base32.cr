@@ -1,9 +1,21 @@
 require "./base32/*"
 
 # The Base32 module provides for the encoding (`encode`, `hex_encode`) and
-# decoding (`decode`, `hex_decode`) of binary data using a Base32 representation.
+# decoding (`decode`, `decode_string`, `hex_decode`, `hex_decode_string`) of
+# binary data using a Base32 representation as defined in RFC 4648.
 #
-# Base32 as defined in RFC 4648
+# ### Examples
+#
+# A simple encoding and decoding:
+# ```
+# require "base32"
+#
+# Base32.encode("Hello World!")        # => "JBSWY3DPEBLW64TMMQQQ===="
+# Base32.encode("Hello World!", false) # => "JBSWY3DPEBLW64TMMQQQ"
+#
+# Base32.decode_string("JBSWY3DPEBLW64TMMQQQ====") # => "Hello World!"
+# Base32.decode_string("JBSWY3DPEBLW64TMMQQQ")     # => "Hello World!"
+# ```
 module Base32
   extend self
 
