@@ -7,12 +7,18 @@ require "./base32/*"
 module Base32
   extend self
 
+  # :nodoc:
   CHARS_STD = ('A'..'Z').to_a + ('2'..'7').to_a
+  # :nodoc:
   CHARS_HEX = ('0'..'9').to_a + ('A'..'V').to_a
-  PAD       = "="
-  DEC_STD   = Hash.zip(CHARS_STD, (0..31).to_a)
-  DEC_HEX   = Hash.zip(CHARS_HEX, (0..31).to_a)
+  # :nodoc:
+  PAD = '='
+  # :nodoc:
+  DEC_STD = Hash.zip(CHARS_STD, (0..31).to_a)
+  # :nodoc:
+  DEC_HEX = Hash.zip(CHARS_HEX, (0..31).to_a)
 
+  # :nodoc:
   private def to_base32(data, pad : Bool, chars : Array(Char)) : String
     mio = MemoryIO.new
     data.to_slice.each_slice(5) do |slice|
@@ -36,6 +42,7 @@ module Base32
     mio.to_s
   end
 
+  # :nodoc:
   private def from_base32(data, map : Hash(Char, Int)) : Slice(UInt8)
     mio = MemoryIO.new
 
