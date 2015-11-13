@@ -89,5 +89,4 @@ describe Base32 do
     assert { Base32.hex_decode_string("CPNMUOJ1").should eq("fooba") }
     assert { Base32.hex_decode_string("CPNMUOJ1E8").should eq("foobar") }
   end
-  end
 end
