@@ -41,4 +41,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [noumar](https://github.com/noumar) Mikael Karlsson - creator, maintainer
+- [noumar](https://github.com/noumar) / Mikael Karlsson - creator, maintainer

@@ -58,7 +58,7 @@ module Base32
   private def from_base32(data, map : Hash(Char, Int)) : Slice(UInt8)
     mio = MemoryIO.new
 
-    data.to_slice.select { |s| !['\n'.ord, '='.ord].includes?(s) }.each_slice(8) do |slice|
+    data.to_slice.select { |s| !['\n'.ord, '\r'.ord, '='.ord].includes?(s) }.each_slice(8) do |slice|
       bits = 0_u64
       0.to(slice.size - 1) do |j|
         bits = bits | (map[slice[j].chr].to_u64 << (7 - j)*5)
@@ -75,7 +75,7 @@ module Base32
     mio.to_slice
   end
 
-  # Encode data as base32 with padding, or without if ´pad´ = false
+  # Encode data as base32 with padding, or without if `pad` = false
   def encode(data, pad = true : Bool) : String
     to_base32(data, pad, CHARS_STD)
   end
@@ -90,7 +90,7 @@ module Base32
     String.new(from_base32(data, DEC_STD))
   end
 
-  # Encode data as base32hex with padding, or without if ´pad´ = false
+  # Encode data as base32hex with padding, or without if `pad` = false
   def hex_encode(data, pad = true : Bool) : String
     to_base32(data, pad, CHARS_HEX)
   end
