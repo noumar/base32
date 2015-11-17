@@ -40,18 +40,30 @@ module Base32
       end
 
       mask = 0x1F_u64 << 35
-      7.to(5 - slice.size) do |i|
+      7.to(0) do |i|
         num = (bits & mask) >> i*5
-        mio << chars[num] if num != 0 && (slice.size % 5)
+        mio << chars[num]
         mask = (mask >> 5)
       end
     end
 
-    until (mio.size % 8 == 0)
-      mio << PAD
-    end if pad
+    # Exclude empty trailing chars
+    while mio.buffer[mio.pos - 1] == chars[0].ord
+      mio.pos -= 1
+    end
 
-    mio.to_s
+    # Fill with padding
+    until (mio.pos % 8 == 0)
+      mio << PAD
+    end
+
+    # Exclude padding if not wanted
+    sl = mio.to_slice
+    while sl[-1] == PAD.ord
+      sl = sl[0, sl.size - 1]
+    end if sl.size > 0 && pad == false
+
+    String.new(sl)
   end
 
   # :nodoc:
@@ -65,14 +77,19 @@ module Base32
       end
 
       mask = 0xFF_u64 << 32
-      4.to(7 - slice.size) do |i|
+      4.to(0) do |i|
         num = (bits & mask) >> i*8
-        mio << num.chr if num != 0 && (slice.size % 8)
+        mio.write_byte(num.to_u8)
         mask = (mask >> 8)
       end
     end
 
-    mio.to_slice
+    # Exclude trailing zero bytes
+    sl = mio.to_slice
+    while sl[-1] == 0
+      sl = sl[0, sl.size - 1]
+    end if sl.size > 0
+    sl
   end
 
   # Encode data as base32 with padding, or without if `pad` = false
