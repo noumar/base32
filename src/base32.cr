@@ -32,7 +32,8 @@ module Base32
 
   # :nodoc:
   private def to_base32(data, pad : Bool, chars : Array(Char)) : String
-    mio = MemoryIO.new
+    mio = MemoryIO.new((data.bytesize / 5) * 8)
+
     data.to_slice.each_slice(5) do |slice|
       bits = 0_u64
       0.to(slice.size - 1) do |j|
@@ -68,7 +69,7 @@ module Base32
 
   # :nodoc:
   private def from_base32(data, map : Hash(Char, Int)) : Slice(UInt8)
-    mio = MemoryIO.new
+    mio = MemoryIO.new((data.bytesize / 8) * 5)
 
     data.to_slice.select { |s| !['\n'.ord, '\r'.ord, '='.ord].includes?(s) }.each_slice(8) do |slice|
       bits = 0_u64
