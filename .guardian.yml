@@ -1,0 +1,11 @@
+files: ./src/*.cr
+run: ~/Repos/crystal/bin/crystal build --no-codegen src/base32.cr
+---
+files: ./src/*.cr
+run: ~/Repos/crystal/bin/crystal spec
+---
+files: ./spec/*.cr
+run: ~/Repos/crystal/bin/crystal spec %file%
+---
+files: ./shard.yml
+run: ~/Repos/crystal/bin/crystal deps
