@@ -94,7 +94,7 @@ module Base32
   end
 
   # Encode data as base32 with padding, or without if `pad` = false
-  def encode(data, pad = true : Bool) : String
+  def encode(data, pad : Bool = true) : String
     to_base32(data, pad, CHARS_STD)
   end
 
@@ -109,7 +109,7 @@ module Base32
   end
 
   # Encode data as base32hex with padding, or without if `pad` = false
-  def hex_encode(data, pad = true : Bool) : String
+  def hex_encode(data, pad : Bool = true) : String
     to_base32(data, pad, CHARS_HEX)
   end
 
