@@ -89,4 +89,10 @@ describe Base32 do
     Base32.hex_decode_string("CPNMUOJ1").should eq("fooba")
     Base32.hex_decode_string("CPNMUOJ1E8").should eq("foobar")
   end
+
+  it "encodes/decodes with NUL bytes" do
+    str = "\0foo\0bar\0"
+    str2 = Base32.decode_string(Base32.encode(str))
+    str2.should eq str
+  end
 end
