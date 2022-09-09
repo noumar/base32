@@ -1,3 +1,5 @@
+# ARCHIVED!!! See https://github.com/philnash/base32 or https://github.com/didactic-drunk/base32
+
 # base32
 
 [![Build Status](https://travis-ci.org/noumar/base32.svg?branch=master)](https://travis-ci.org/noumar/base32)
