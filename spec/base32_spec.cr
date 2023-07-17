@@ -12,6 +12,9 @@ describe Base32 do
     Base32.encode("foobar").should eq("MZXW6YTBOI======")
 
     Base32.encode("Hello World!").should eq("JBSWY3DPEBLW64TMMQQQ====")
+
+    # Compared with Ruby version
+    Base32.encode(Bytes.new(4)).should eq("AAAAAAA=")
   end
 
   it "encodes to base32 (w/o padding)" do
@@ -88,5 +91,18 @@ describe Base32 do
     Base32.hex_decode_string("CPNMUOG").should eq("foob")
     Base32.hex_decode_string("CPNMUOJ1").should eq("fooba")
     Base32.hex_decode_string("CPNMUOJ1E8").should eq("foobar")
+  end
+
+  describe "NUL byte" do
+    str = "\0foo\0bar\0"
+    bstr = "ABTG63YAMJQXEAA="
+
+    it "encode" do
+      Base32.encode(str).should eq bstr
+    end
+
+    it "decode" do
+      Base32.decode_string(bstr).should eq str
+    end
   end
 end
